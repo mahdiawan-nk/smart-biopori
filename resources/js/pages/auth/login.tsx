@@ -129,7 +129,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                 </div>
 
                 {/* Footer Link */}
-                <div className="text-slate-500 text-center text-xs border-t border-slate-800/60 pt-4 mt-2">
+                {/* <div className="text-slate-500 text-center text-xs border-t border-slate-800/60 pt-4 mt-2">
                     Belum memiliki lisensi perangkat?{' '}
                     <TextLink 
                         href={route('register')} 
@@ -138,7 +138,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                     >
                         Hubungi Admin
                     </TextLink>
-                </div>
+                </div> */}
             </form>
 
             {status && (
