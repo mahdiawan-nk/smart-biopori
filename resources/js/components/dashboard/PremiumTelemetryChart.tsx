@@ -149,7 +149,7 @@ export default function PremiumTelemetryChart({ deviceId }: PremiumTelemetryChar
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`http://localhost:8801/api/trend-data/${deviceId}?limit=${limit}`);
+                const response = await fetch(`https://smartbiopori.com/api/trend-data/${deviceId}?limit=${limit}`);
                 if (!response.ok) throw new Error('Network response was not ok');
 
                 const result = await response.json();

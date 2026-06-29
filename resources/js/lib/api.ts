@@ -1,5 +1,5 @@
 // Ambil BASE_URL dari environment variable (.env)
-const BASE_URL = 'http://localhost:8801';
+const BASE_URL = 'https://smartbiopori.com';
 
 interface RequestOptions extends RequestInit {
     params?: Record<string, string | number | boolean>;

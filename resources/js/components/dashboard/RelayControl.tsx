@@ -59,7 +59,7 @@ export default function RelayControl({ deviceId }: RelayControlProps) {
             || (document.cookie.match(/XSRF-TOKEN=([^;]+)/)?.[1] ? decodeURIComponent(document.cookie.match(/XSRF-TOKEN=([^;]+)/)![1]) : '');
 
         try {
-            const response = await fetch(`http://localhost:8801/api/relay/update`, {
+            const response = await fetch(`https://smartbiopori.com/api/relay/update`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

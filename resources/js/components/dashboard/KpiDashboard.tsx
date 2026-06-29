@@ -25,7 +25,7 @@ export default function KpiDashboard({ deviceId }: KpiDashboardProps) {
             setLoading(true);
             setError(null);
             try {
-                const response = await fetch(`http://localhost:8801/api/dashboard?device_id=${deviceId}`);
+                const response = await fetch(`https://smartbiopori.com/api/dashboard?device_id=${deviceId}`);
                 if (!response.ok) {
                     throw new Error('Gagal mengambil data dari server');
                 }

@@ -23,7 +23,7 @@ export default function TemperatureGauge({ deviceId }: TemperatureGaugeProps) {
 
         const fetchTemperature = async () => {
             try {
-                const response = await fetch(`http://localhost:8801/api/dashboard?device_id=${deviceId}`);
+                const response = await fetch(`https://smartbiopori.com/api/dashboard?device_id=${deviceId}`);
                 if (!response.ok) throw new Error();
 
                 const json = await response.json();
