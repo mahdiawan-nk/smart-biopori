@@ -1,5 +1,5 @@
 import { Head, useForm } from '@inertiajs/react';
-import { LoaderCircle } from 'lucide-react';
+import { LoaderCircle, ShieldCheck, Cpu } from 'lucide-react';
 import { FormEventHandler } from 'react';
 
 import InputError from '@/components/input-error';
@@ -36,13 +36,22 @@ export default function Login({ status, canResetPassword }: LoginProps) {
     };
 
     return (
-        <AuthLayout title="Log in to your account" description="Enter your email and password below to log in">
-            <Head title="Log in" />
+        <AuthLayout 
+            title="Gerbang Kendali IoT" 
+            description="Masuk menggunakan akun premium Anda untuk mengakses visualisasi data real-time perangkat biopori."
+        >
+            <Head title="Log In - Smart Biopori" />
+
+            {/* Premium Badge / Icon Header */}
+            
 
             <form className="flex flex-col gap-6" onSubmit={submit}>
-                <div className="grid gap-6">
+                <div className="grid gap-5">
+                    {/* Input Email */}
                     <div className="grid gap-2">
-                        <Label htmlFor="email">Email address</Label>
+                        <Label htmlFor="email" className="text-slate-300 font-medium text-xs tracking-wider uppercase">
+                            Alamat Email
+                        </Label>
                         <Input
                             id="email"
                             type="email"
@@ -52,17 +61,25 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                             autoComplete="email"
                             value={data.email}
                             onChange={(e) => setData('email', e.target.value)}
-                            placeholder="email@example.com"
+                            placeholder="nama@perusahaan.com"
+                            className="bg-slate-900/50 border-slate-700/60 text-slate-200 placeholder:text-slate-500 focus-visible:ring-emerald-500 focus-visible:border-emerald-500 rounded-xl"
                         />
                         <InputError message={errors.email} />
                     </div>
 
+                    {/* Input Password */}
                     <div className="grid gap-2">
                         <div className="flex items-center">
-                            <Label htmlFor="password">Password</Label>
+                            <Label htmlFor="password" className="text-slate-300 font-medium text-xs tracking-wider uppercase">
+                                Kata Sandi
+                            </Label>
                             {canResetPassword && (
-                                <TextLink href={route('password.request')} className="ml-auto text-sm" tabIndex={5}>
-                                    Forgot password?
+                                <TextLink 
+                                    href={route('password.request')} 
+                                    className="ml-auto text-xs text-emerald-400 hover:text-emerald-300 transition-colors" 
+                                    tabIndex={5}
+                                >
+                                    Lupa sandi?
                                 </TextLink>
                             )}
                         </div>
@@ -74,31 +91,61 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                             autoComplete="current-password"
                             value={data.password}
                             onChange={(e) => setData('password', e.target.value)}
-                            placeholder="Password"
+                            placeholder="••••••••"
+                            className="bg-slate-900/50 border-slate-700/60 text-slate-200 placeholder:text-slate-500 focus-visible:ring-emerald-500 focus-visible:border-emerald-500 rounded-xl"
                         />
                         <InputError message={errors.password} />
                     </div>
 
-                    <div className="flex items-center space-x-3">
-                        <Checkbox id="remember" name="remember" tabIndex={3} />
-                        <Label htmlFor="remember">Remember me</Label>
+                    {/* Remember Me */}
+                    <div className="flex items-center space-x-3 py-1">
+                        <Checkbox 
+                            id="remember" 
+                            name="remember" 
+                            tabIndex={3}
+                            checked={data.remember}
+                            onCheckedChange={(checked) => setData('remember', !!checked)}
+                            className="border-slate-600 data-[state=checked]:bg-emerald-500 data-[state=checked]:border-emerald-500 rounded"
+                        />
+                        <Label htmlFor="remember" className="text-sm text-slate-400 font-normal cursor-pointer select-none">
+                            Ingat perangkat ini
+                        </Label>
                     </div>
 
-                    <Button type="submit" className="mt-4 w-full" tabIndex={4} disabled={processing}>
-                        {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                        Log in
+                    {/* Button Submit Premium */}
+                    <Button 
+                        type="submit" 
+                        className="mt-2 w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-6 rounded-xl transition-all duration-300 transform hover:-translate-y-0.5 shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/30 gap-2" 
+                        tabIndex={4} 
+                        disabled={processing}
+                    >
+                        {processing ? (
+                            <LoaderCircle className="h-5 w-5 animate-spin text-slate-950" />
+                        ) : (
+                            <ShieldCheck className="h-5 w-5 text-slate-950" />
+                        )}
+                        Masuk ke Dashboard
                     </Button>
                 </div>
 
-                <div className="text-muted-foreground text-center text-sm">
-                    Don't have an account?{' '}
-                    <TextLink href={route('register')} tabIndex={5}>
-                        Sign up
+                {/* Footer Link */}
+                <div className="text-slate-500 text-center text-xs border-t border-slate-800/60 pt-4 mt-2">
+                    Belum memiliki lisensi perangkat?{' '}
+                    <TextLink 
+                        href={route('register')} 
+                        className="text-emerald-400 hover:text-emerald-300 font-medium transition-colors"
+                        tabIndex={5}
+                    >
+                        Hubungi Admin
                     </TextLink>
                 </div>
             </form>
 
-            {status && <div className="mb-4 text-center text-sm font-medium text-green-600">{status}</div>}
+            {status && (
+                <div className="mt-4 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-center text-sm font-medium text-emerald-400">
+                    {status}
+                </div>
+            )}
         </AuthLayout>
     );
 }
