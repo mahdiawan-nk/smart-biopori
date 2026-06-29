@@ -1,0 +1,14 @@
+{
+    "agents": [
+        "claude_code",
+        "codex"
+    ],
+    "cloud": true,
+    "guidelines": true,
+    "skills": [
+        "laravel-best-practices",
+        "inertia-react-development",
+        "tailwindcss-development",
+        "deploying-laravel-cloud"
+    ]
+}

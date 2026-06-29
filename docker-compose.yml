@@ -1,0 +1,32 @@
+services:
+  app:
+    build: .
+    container_name: biopori_app
+    working_dir: /var/www/html
+    user: "${APP_UID:-1000}:${APP_GID:-1000}"
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - "9800:9000"
+
+  nginx:
+    image: nginx:latest
+    container_name: biopori_nginx
+    ports:
+      - "8801:80"
+    volumes:
+      - ./:/var/www/html
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - app
+
+  node:
+    image: node:22
+    container_name: biopori_node
+    working_dir: /var/www/html
+    user: "${APP_UID:-1000}:${APP_GID:-1000}"
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - "5173:5173"
+    command: npm run dev -- --host
