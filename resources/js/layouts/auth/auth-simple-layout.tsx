@@ -35,8 +35,13 @@ export default function AuthSimpleLayout({ children, title, description }: AuthL
                     <div className="flex flex-col items-center gap-4">
                         <Link href={route('home')} className="flex flex-col items-center gap-2 group">
                             {/* Tempat Logo dengan Efek Glow saat di-hover */}
-                            <div className="mb-1 flex h-11 w-11 items-center justify-center rounded-xl bg-slate-800/80 border border-slate-700/50 group-hover:border-emerald-500/50 shadow-inner transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(16,185,129,0.2)]">
-                                <AppLogoIcon className="size-6 fill-current text-emerald-400 transition-colors duration-300" />
+                            <div className="mb-1 flex h-11 w-11 items-center justify-center group-hover:border-emerald-500/50 shadow-inner transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(16,185,129,0.2)]">
+                                <img
+                                    src="/img/logo.png"
+                                    alt="Logo BioMonitor"
+                                    className="w-15 h-15 object-contain"
+
+                                />
                             </div>
                             <span className="sr-only">Smart Biopori Dashboard</span>
                         </Link>
