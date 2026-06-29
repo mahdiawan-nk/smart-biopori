@@ -12,7 +12,7 @@ export default function Welcome() {
                 <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
             </Head>
 
-            <section className="relative w-full min-h-screen md:min-h-[600px] bg-[radial-gradient(circle_at_80%_20%,#064e3b_0%,#0f172a_60%)] flex items-center justify-center p-5 md:p-10 overflow-hidden font-sans">
+            <section className="relative w-full min-h-screen bg-[radial-gradient(circle_at_80%_20%,#064e3b_0%,#0f172a_60%)] flex items-center justify-center p-5 md:p-10 overflow-hidden font-sans">
                 
                 {/* Ornamen Grafis Latar Belakang (Cyber-Organic Nodes) */}
                 <div className="absolute top-1/4 left-[10%] w-[120px] md:w-[250px] h-[120px] md:h-[250px] bg-emerald-500/10 rounded-full blur-[40px] pointer-events-none" />
