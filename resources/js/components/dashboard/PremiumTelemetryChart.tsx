@@ -90,7 +90,7 @@ export default function PremiumTelemetryChart({ deviceId }: PremiumTelemetryChar
         },
         xaxis: {
             type: 'datetime',
-            range: dynamicXAxisRange,
+            // range: dynamicXAxisRange,
             axisBorder: { show: false },
             axisTicks: { show: false },
             labels: {
@@ -158,27 +158,22 @@ export default function PremiumTelemetryChart({ deviceId }: PremiumTelemetryChar
                 const parsedTemp: DataPoint[] = [];
                 const parsedMoisture: DataPoint[] = [];
 
-                // Ambil tanggal hari ini sebagai jangkar dasar waktu
-                const todayStr = new Date().toISOString().split('T')[0];
-                const baseTime = new Date().getTime();
                 rawData.forEach((item: any) => {
                     const newTemp = Number(item.soil_temperature);
                     const newMoisture = Number(item.soil_moisture);
 
                     if (isNaN(newTemp) || isNaN(newMoisture)) return;
 
-                    // Mengonversi string "HH:mm" dari API ke objek Date yang valid
-                    // Contoh: "2026-07-01T17:43:00"
-                    const timeString = `${todayStr}T${item.time}:00`;
-                    const timestamp = new Date(timeString).getTime();
+                    // Langsung parsing string ISO dari API ke format Unix Timestamp (milidetik)
+                    const timestamp = new Date(item.time).getTime();
 
-                    // Pastikan timestamp valid sebelum dimasukkan ke grafik
+                    // Validasi jika terjadi error parsing waktu
                     if (isNaN(timestamp)) return;
-                    // Menggunakan unshift jika Anda ingin data terbaru berada di sisi paling kanan grafik
+
+                    // unshift digunakan agar data paling lama ada di kiri, dan data terbaru muncul di kanan grafik
                     parsedTemp.unshift([timestamp, newTemp]);
                     parsedMoisture.unshift([timestamp, newMoisture]);
                 });
-                console.log(baseTime)
 
                 const updatedSeries = [
                     { name: 'Soil Temperature', data: parsedTemp },
