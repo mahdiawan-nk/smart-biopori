@@ -130,7 +130,7 @@ class DashboardController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'device_id' => ['required', 'uuid', 'exists:devices,id'],
-            'relay' => ['nullable', 'boolean'],
+            'relay_control' => ['nullable', 'boolean'],
         ]);
 
         if ($validator->fails()) {
@@ -147,7 +147,7 @@ class DashboardController extends Controller
                     'device_id' => $request->device_id,
                 ],
                 [
-                    'relay' => $request->relay,
+                    'relay' => $request->relay_control,
                 ]
             );
 
@@ -155,9 +155,11 @@ class DashboardController extends Controller
                 'status' => 'success',
                 'message' => 'Relay berhasil diperbarui.',
                 'data' => [
+                    'request' => '',
                     'device_id' => $threshold->device_id,
                     'relay' => $threshold->relay,
                 ]
+
             ], 200);
         } catch (\Throwable $e) {
             return response()->json([

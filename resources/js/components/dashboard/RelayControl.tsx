@@ -64,7 +64,6 @@ export default function RelayControl({ deviceId }: RelayControlProps) {
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
-                    'X-CSRF-TOKEN': csrfToken, // Masukkan token ke header
                 },
                 body: JSON.stringify({
                     device_id: deviceId,

@@ -25,7 +25,6 @@ export default function Dashboard() {
 
     const handleDeviceChange = (id: string) => {
         setSelectedId(id);
-        console.log("Berpindah ke Device ID:", id);
     };
 
     async function loadDevicesList() {

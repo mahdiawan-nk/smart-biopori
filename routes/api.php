@@ -10,6 +10,6 @@ Route::get('/user', function (Request $request) {
 
 
 Route::get('dashboard', [DashboardController::class, 'index'])->name('api.dashboard.index');
-    Route::get('devices', [DashboardController::class, 'getDeviceList'])->name('api.device');
-    Route::get('trend-data/{id}', [DashboardController::class, 'getTrenData'])->name('api.trendata');
-    Route::post('relay/update', [DashboardController::class, 'relayControl'])->name('api.relaycontrol');
+Route::get('devices', [DashboardController::class, 'getDeviceList'])->name('api.device');
+Route::get('trend-data/{id}', [DashboardController::class, 'getTrenData'])->name('api.trendata');
+Route::post('relay/update', [DashboardController::class, 'relayControl'])->name('api.relaycontrol');
