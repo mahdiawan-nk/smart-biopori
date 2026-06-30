@@ -112,7 +112,7 @@ class DashboardController extends Controller
             ->values()
             ->map(function ($item) {
                 return [
-                    'time' => $item->created_at->format('H:i'),
+                    'time' => $item->created_at,
                     'soil_moisture' => $item->soil_moisture,
                     'soil_temperature' => $item->soil_temperature,
                 ];
