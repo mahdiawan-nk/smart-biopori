@@ -64,9 +64,9 @@ export default function PremiumTelemetryChart({ deviceId }: PremiumTelemetryChar
         grid: {
             borderColor: '#334155',
             strokeDashArray: 5,
-            padding: { 
-                right: isMobile ? 10 : 20, 
-                left: isMobile ? 10 : 20 
+            padding: {
+                right: isMobile ? 10 : 20,
+                left: isMobile ? 10 : 20
             }
         },
         title: {
@@ -96,8 +96,8 @@ export default function PremiumTelemetryChart({ deviceId }: PremiumTelemetryChar
             labels: {
                 format: 'HH:mm:ss',
                 rotate: isMobile ? -30 : 0,
-                style: { 
-                    colors: '#64748b', 
+                style: {
+                    colors: '#64748b',
                     fontFamily: 'Inter, sans-serif',
                     fontSize: isMobile ? '10px' : '11px'
                 }
@@ -157,19 +157,28 @@ export default function PremiumTelemetryChart({ deviceId }: PremiumTelemetryChar
 
                 const parsedTemp: DataPoint[] = [];
                 const parsedMoisture: DataPoint[] = [];
-                const baseTime = new Date().getTime();
 
-                rawData.forEach((item: any, index: number) => {
+                // Ambil tanggal hari ini sebagai jangkar dasar waktu
+                const todayStr = new Date().toISOString().split('T')[0];
+                const baseTime = new Date().getTime();
+                rawData.forEach((item: any) => {
                     const newTemp = Number(item.soil_temperature);
                     const newMoisture = Number(item.soil_moisture);
 
                     if (isNaN(newTemp) || isNaN(newMoisture)) return;
 
-                    const calculatedTimestamp = baseTime - (index * INTERVAL_MS);
+                    // Mengonversi string "HH:mm" dari API ke objek Date yang valid
+                    // Contoh: "2026-07-01T17:43:00"
+                    const timeString = `${todayStr}T${item.time}:00`;
+                    const timestamp = new Date(timeString).getTime();
 
-                    parsedTemp.unshift([calculatedTimestamp, newTemp]);
-                    parsedMoisture.unshift([calculatedTimestamp, newMoisture]);
+                    // Pastikan timestamp valid sebelum dimasukkan ke grafik
+                    if (isNaN(timestamp)) return;
+                    // Menggunakan unshift jika Anda ingin data terbaru berada di sisi paling kanan grafik
+                    parsedTemp.unshift([timestamp, newTemp]);
+                    parsedMoisture.unshift([timestamp, newMoisture]);
                 });
+                console.log(baseTime)
 
                 const updatedSeries = [
                     { name: 'Soil Temperature', data: parsedTemp },
@@ -201,13 +210,13 @@ export default function PremiumTelemetryChart({ deviceId }: PremiumTelemetryChar
             width: '100%',
             boxSizing: 'border-box'
         }}>
-            <div style={{ 
-                display: 'flex', 
+            <div style={{
+                display: 'flex',
                 flexDirection: isMobile ? 'column' : 'row',
                 gap: isMobile ? '8px' : '0px',
-                justifyContent: 'space-between', 
-                alignItems: isMobile ? 'flex-start' : 'center', 
-                marginBottom: '16px' 
+                justifyContent: 'space-between',
+                alignItems: isMobile ? 'flex-start' : 'center',
+                marginBottom: '16px'
             }}>
                 <span style={{ color: '#f8fafc', fontWeight: 600, fontSize: '11px', fontFamily: 'Inter', letterSpacing: '0.5px' }}>
                     SHOW HISTORY LIMIT
